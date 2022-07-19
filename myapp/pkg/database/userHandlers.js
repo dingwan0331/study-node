@@ -1,10 +1,14 @@
-const {User} = require('../../models/users')
-const mongoose = require('mongoose')
+const {User}       = require('../../models/users')
+const mongoose     = require('mongoose');
+const InvalidError = require('../exceptions');
 
 module.exports = {
-    createUser : (userData) => {
-        const user = new User(userData)
-        user.save();
+    createUser : async (userData) => {
+        try {
+            const user = new User(userData)
+            await user.save();
+
+        }catch{throw new InvalidError('DB ERROR!!')}
     },
     getUser : () => {
         return User.find({})
