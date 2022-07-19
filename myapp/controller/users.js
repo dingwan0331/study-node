@@ -38,14 +38,7 @@ module.exports = {
     },
     userDelete : async (req, res)=>{
         const id     = req.decoded._id
-        const db_res = await dbHandler.userDelete(id)
-        try{
-            if (db_res.deletedCount <= 0){
-                throw new Except('Already Deleted User')
-            }
-        }catch(err){
-            res.status(err.status).json(err.msg)
-        }
-        res.status(204).json()
+        await dbHandler.userDelete(id)
+        res.status(204).end()
     }
 }
