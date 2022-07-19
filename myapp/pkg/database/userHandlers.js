@@ -1,4 +1,5 @@
 const {User} = require('../../models/users')
+const mongoose = require('mongoose')
 
 module.exports = {
     createUser : (userData) => {
@@ -7,5 +8,9 @@ module.exports = {
     },
     getUser : () => {
         return User.find({})
+    },
+    userDelete : (id) =>{
+        const u_id = mongoose.Types.ObjectId(id)
+        return User.deleteOne({ _id: u_id })
     }
 }

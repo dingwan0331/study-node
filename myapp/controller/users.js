@@ -1,7 +1,8 @@
-const users = require('../models/users');
+const users     = require('../models/users');
 // const {User} = require('../models/users')
-const Except = require('../pkg/exceptions')
+const Except    = require('../pkg/exceptions')
 const dbHandler = require('../pkg/database/index')
+const jwt       = require('jsonwebtoken')
 
 module.exports = {
     signUp : (req, res) => {
@@ -34,5 +35,17 @@ module.exports = {
     users : async (req, res)=>{
         const result = await dbHandler.getUser()
         res.status(200).json(result)
+    },
+    userDelete : async (req, res)=>{
+        const id     = req.decoded._id
+        const db_res = await dbHandler.userDelete(id)
+        try{
+            if (db_res.deletedCount <= 0){
+                throw new Except('Already Deleted User')
+            }
+        }catch(err){
+            res.status(err.status).json(err.msg)
+        }
+        res.status(204).json()
     }
 }
