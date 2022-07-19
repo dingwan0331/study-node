@@ -14,8 +14,8 @@ db.on('error', console.error)
 db.once('open', function(){
   console.log("Connected to mongod server")
 });
-
-mongoose.connect(process.env.MONGO_URL)
+const BluebirdPromise = require('bluebird').Promise
+mongoose.connect(process.env.MONGO_URL,{useNewUrlParser: true, promiseLibrary: require('bluebird'),useUnifiedTopology: true})
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))

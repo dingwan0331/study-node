@@ -22,7 +22,7 @@ module.exports = {
                 phoneNumber : phoneNumber,
             }
 
-            dbHandler(userData)
+            dbHandler.createUser(userData)
 
             res.status(201).json({msg: 'Good'})
             // res.status(201).json({message: 'create'})
@@ -31,4 +31,8 @@ module.exports = {
                 // res.status(error.status).json(error.msg)
             // }
         },
+    users : async (req, res)=>{
+        const result = await dbHandler.getUser()
+        res.status(200).json(result)
     }
+}
