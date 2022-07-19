@@ -1,25 +1,28 @@
 const express    = require('express');
+const app        = express();
 const path       = require('path');
 const bodyParser = require('body-parser')
-const app        = express();
 const mongoose   = require('mongoose');
 const port       = 3000
 const db         = mongoose.connection;
+const dotenv     = require("dotenv");
 
-const indexRouter = require('./routes/index');
+dotenv.config();
 
 // mongoDB
 db.on('error', console.error)
 db.once('open', function(){
-  console.log("Connected to mongod server");
+  console.log("Connected to mongod server")
 });
-mongoose.connect('mongodb://localhost/mongodb_tutorial');
+
+mongoose.connect(process.env.MONGO_URL)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter);
+const indexRouter = require('./routes/index')
 
+app.use('/', indexRouter)
 
 app.listen(port)
