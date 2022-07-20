@@ -11,6 +11,6 @@ module.exports = {
     },
     userDelete : (id) =>{
         const u_id = mongoose.Types.ObjectId(id)
-        return User.deleteOne({ _id: u_id })
+        User.deleteOne({ _id: u_id })
     }
 }
