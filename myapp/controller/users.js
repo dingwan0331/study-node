@@ -33,5 +33,27 @@ module.exports = {
         await dbHandler.userDelete(id)
         
         res.status(204).end()
+    },
+    userUpdate : async (req, res) => {
+        try{
+            const _id    = req.decoded._id
+            const user   = req.body
+            const DB_key = ['name', 'password', 'email','phoneNumber']
+            let userData = {}
+
+            for (key in user){
+                if(DB_key.includes(key)){
+                userData[key] = user[key]
+                }
+            }
+            
+            if(Object.keys(userData).length ===0){
+                throw new InvalidError('Invalid userData')
+            }
+
+            res.status(200).json({msg : 'Done'})
+
+            await dbHandler.updateUser(_id, userData)
+        }catch(err){res.status(err.status).json(err.msg)}
+        }
     }
-}

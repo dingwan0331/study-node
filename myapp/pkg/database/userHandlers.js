@@ -16,5 +16,10 @@ module.exports = {
     userDelete : (id) =>{
         const u_id = mongoose.Types.ObjectId(id)
         User.deleteOne({ _id: u_id })
+    },
+    updateUser : async (_id, userData) => {
+        const u_id = mongoose.Types.ObjectId(_id)
+
+        await User.updateOne({_id : u_id},userData)
     }
 }
