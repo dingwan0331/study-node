@@ -10,6 +10,7 @@ const dotenv     = require("dotenv");
 dotenv.config();
 
 // mongoDB
+mongoose.Promise = require('bluebird');
 db.on('error', console.error)
 db.once('open', function(){
   console.log("Connected to mongod server")
