@@ -5,17 +5,20 @@ const InvalidError = require('../pkg/exceptions')
 module.exports = {
     signUp : async (req, res) => {
             try{
+                console.log(1)
                 if(Object.keys(req.body).length===0){
+                    console.log(2)
                     throw new InvalidError('There is No body')
                 }
             const data     = req.body
+            console.log(data)
             const userData = {
                 name        : data.name,
                 password    : data.password,
                 email       : data.email,
                 phoneNumber : data.email
             }
-
+            console.log(userData)
             await dbHandler.createUser(userData)
 
             res.status(201).json({msg: 'Good'})}catch(err){

@@ -6,6 +6,7 @@ module.exports = {
     createUser : async (userData) => {
         try {
             const user = new User(userData)
+            console.log(user)
             await user.save();
 
         }catch{throw new InvalidError('DB ERROR!!')}
